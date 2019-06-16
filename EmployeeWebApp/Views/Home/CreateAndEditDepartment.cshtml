@@ -1,0 +1,34 @@
+﻿@model DataAccessLayer.ViewModels.DepartmentViewModel
+
+
+@using (Ajax.BeginForm("CreateAndEditDepartment", "Home", new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "CreateAndEditDepartmentSuccess",
+    OnFailure = "CreateAndEditDepartmentFailure",
+    UpdateTargetId = "DepartmentListDiv",
+    OnBegin  = "DisabledButtonDepartment",
+    InsertionMode = InsertionMode.Replace
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.DepartmentId)
+    <div class="form-group">
+        @Html.LabelFor(m => m.DepatmentName)
+        @Html.TextBoxFor(m => m.DepatmentName, new { @class = "form-control", @placeholder = "Enter Department Name" })
+        @Html.ValidationMessageFor(m => m.DepatmentName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success" id="disabledSaveButton" >SAVE</button>
+        <a data-ajax="true" 
+           data-ajax-failure="ResentDepartmentFailue"
+           data-ajax-method="GET" 
+           data-ajax-mode="replace" 
+           data-ajax-success="ResentDepartmentSuccess" 
+           data-ajax-update="#CreateAndEditDepartmentDiv" 
+           href="@Url.Action("CreateAndEditDepartment", "Home", new { departmentId = "" })"
+           class="btn btn-danger">
+            RESET
+        </a>
+    </div>
+}

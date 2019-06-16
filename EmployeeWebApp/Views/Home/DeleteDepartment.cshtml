@@ -1,0 +1,29 @@
+﻿@model DataAccessLayer.ViewModels.DepartmentViewModel
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Confirm Delete Department</h4>
+</div>
+<div class="modal-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Department Name </th>
+                <th>@Model.DepatmentName</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="modal-footer">
+    <a data-ajax="true"
+       data-ajax-failure="ConfirmDeleteDepartmentFailure"
+       data-ajax-method="GET"
+       data-ajax-mode="replace"
+       data-ajax-success="ConfirmDeleteDepartmentSuccess"
+       data-ajax-update="#DepartmentListDiv"
+       href="@Url.Action("ConfirmDeleteDepartment", "Home", new { departmentId = Model.DepartmentId })"
+       class="btn btn-danger">
+        <i class="glyphicon glyphicon-remove"></i>
+        CONFIRM DELETE
+    </a>
+    <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+</div>

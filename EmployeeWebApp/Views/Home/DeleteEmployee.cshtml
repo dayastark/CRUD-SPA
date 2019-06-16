@@ -1,0 +1,44 @@
+﻿@model DataAccessLayer.ViewModels.EmployeeViewModel
+<style>
+    thead tr th { text-align:left;}
+</style>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Confirm Delete Employee</h4>
+</div>
+<div class="modal-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Employee Full Name </th>
+                <th>@Model.FirstName @Model.LastName</th>
+            </tr>
+            <tr>
+                <th>Salary</th>
+                <th>@Model.Salary</th>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <th>@Model.Designation</th>
+            </tr>
+            <tr>
+                <th>Department</th>
+                <th>@Model.DepartmentName</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="modal-footer">
+    <a data-ajax="true"
+       data-ajax-failure="ConfirmDeleteEmployeeFailure"
+       data-ajax-method="GET"
+       data-ajax-mode="replace"
+       data-ajax-success="ConfirmDeleteEmployeeSuccess"
+       data-ajax-update="#EmployeeListDiv"
+       href="@Url.Action("ConfirmDeleteEmployee", "Home", new { employeeId = Model.EmployeeId })"
+       class="btn btn-danger">
+        <i class="glyphicon glyphicon-remove"></i>
+        CONFIRM DELETE
+    </a>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>

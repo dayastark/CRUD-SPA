@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DataAccessLayer.ViewModels.EmployeeViewModel>
+@{  int index = 0; }
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            index++;
+            <tr>
+                <td>@index</td>
+                <td style="text-align:left">@item.FirstName @item.LastName </td>
+                <td>@item.Designation</td>
+                <td>@item.DepartmentId</td>
+                <td>@item.Salary</td>
+                <td>
+                    <a data-ajax="true"
+                       data-ajax-failure="DeleteEmployeeFailure"
+                       data-ajax-method="GET" 
+                       data-ajax-mode="replace"
+                       data-ajax-success="DeleteEmployeeSuccess"
+                       data-ajax-update="#DeleteEmployeeDiv"
+                       href="@Url.Action("DeleteEmployee", "Home", new { employeeId = item.EmployeeId })"
+                       class="btn btn-danger">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                    <a data-ajax="true"
+                       data-ajax-failure="EditEmployeeFailure"
+                       data-ajax-method="GET"
+                       data-ajax-mode="replace"
+                       data-ajax-success="EditEmployeeSuccess"
+                       data-ajax-update="#CreateAndEditEmployeeDiv"
+                       href="@Url.Action("CreateAndEditEmployee", "Home", new { employeeId = item.EmployeeId })"
+                       class="btn btn-warning">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

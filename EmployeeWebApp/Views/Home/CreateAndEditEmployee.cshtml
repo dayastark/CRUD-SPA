@@ -1,0 +1,45 @@
+﻿@model DataAccessLayer.ViewModels.EmployeeViewModel
+
+
+@using (Ajax.BeginForm("CreateAndEditEmployee", "Home", new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "CreateAndEditEmployeeSuccess",
+    OnFailure = "CreateAndEditEmployeeFailure",
+    OnBegin = "DisabledButtonEmployee",
+    UpdateTargetId = "EmployeeListDiv",
+    InsertionMode = InsertionMode.Replace
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.EmployeeId)
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Enter Employee Firstname" })
+        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Enter Employee Lastname" })
+        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Salary)
+        @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", @placeholder = "Enter Employee Salary Ex. 00" })
+        @Html.ValidationMessageFor(m => m.Salary, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DepartmentId)
+        @Html.DropDownListFor(m => m.DepartmentId, Model.DepartmentList, "--- Department Name ---", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DepartmentId, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Designation)
+        @Html.DropDownListFor(m => m.Designation, Model.DesignationList, "--- Designation ---", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Designation, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success" id="disabledSaveButton">SAVE</button>
+        <a class="btn btn-danger">RESET</a>
+    </div>
+}

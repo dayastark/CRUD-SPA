@@ -1,0 +1,133 @@
+﻿@model DataAccessLayer.ViewModels.MasterEmployeeViewModel
+
+@section HomeCSS{
+    <style type="text/css">
+        thead tr th { text-align: center }
+        tbody tr td { text-align: center; }
+    </style>
+}
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">Create And Edit Employee</div>
+                <div class="panel-body" id="CreateAndEditEmployeeDiv">
+                    @{ Html.RenderPartial("CreateAndEditEmployee", Model.employeeViewModel); }
+                </div>
+            </div>
+            <div class="panel panel-success">
+                <div class="panel-heading">Create And Edit Department</div>
+                <div class="panel-body" id="CreateAndEditDepartmentDiv">
+                    @{ Html.RenderPartial("CreateAndEditDepartment", Model.deprtmentViewModel); }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-warning">
+                <div class="panel-heading">Employee List</div>
+                <div class="panel-body" id="EmployeeListDiv" style="max-height:300px;overflow-y:scroll">
+                    @{ Html.RenderPartial("EmployeeList", Model.employeeList); }
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Department List</div>
+                <div class="panel-body" id="DepartmentListDiv" style="max-height:300px;overflow-y:scroll">
+                    @{ Html.RenderPartial("DepartmentList", Model.departmentList); }
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="DeleteDepartmentModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content" id="DeleteDepartmentDiv">
+                    @{ Html.RenderPartial("DeleteDepartment", Model.deprtmentViewModel); }
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="DeleteEmployeeModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content" id="DeleteEmployeeDiv">
+                    @{ Html.RenderPartial("DeleteEmployee", Model.employeeViewModel); }
+                </div>
+            </div>
+        </div>
+    </div>
+@section HomeJS{
+    <script type="text/javascript">
+        function CreateAndEditEmployeeSuccess() {
+            $('#CreateAndEditEmployeeDiv').load('@Url.Action("CreateAndEditEmployee", "Home", new { employeeId = "" })', function () {
+                $.validator.unobtrusive.parse("form");
+            });
+            $('#CreateAndEditDepartmentDiv').load('@Url.Action("CreateAndEditDepartment", "Home", new { departmentId = "" })', function () {
+                $.validator.unobtrusive.parse("form");
+            });
+            $.notify("Employee Successfully Saved", "success");
+        }
+        function CreateAndEditEmployeeFailure() {
+            $.notify("Sorry.. Something wrong to save Employee", "danger");
+        }
+        function CreateAndEditDepartmentSuccess() {
+            $('#CreateAndEditEmployeeDiv').load('@Url.Action("CreateAndEditEmployee", "Home", new { employeeId = "" })', function () {
+                $.validator.unobtrusive.parse("form");
+            });
+            $('#CreateAndEditDepartmentDiv').load('@Url.Action("CreateAndEditDepartment", "Home", new { departmentId = "" })', function () {
+                $.validator.unobtrusive.parse("form");
+            });
+            $.notify("Department Successfully Saved", "success");
+        }
+        function CreateAndEditDepartmentFailure() {
+            $.notify("Sorry.. Something wrong to save Department", "danger");
+        }
+        function ResentDepartmentFailue() {
+            $.notify("Sorry.. Something wrong to Reset Departmnet", "danger");
+        }
+        function ResentDepartmentSuccess() {
+            $.validator.unobtrusive.parse("form");
+        }
+        function DisabledButtonEmployee() {
+            $('#disabledSaveButton').attr('disabled', 'disabled')
+        }
+        function DisabledButtonDepartment() {
+            $('#disabledSaveButton').attr('disabled', 'disabled')
+        }
+        function DeleteDepartmentSuccess() {
+            $('#DeleteDepartmentModal').modal('show');
+        }
+        function DeleteDepartmentFailure() {
+            $.notify("Something wrong in Delete Department", "danger");
+        }
+        function ConfirmDeleteDepartmentFailure() {
+            $.notify("Something wrong in Confirm Delete Department", "danger");
+        }
+        function ConfirmDeleteDepartmentSuccess() {
+            $('#DeleteDepartmentModal').modal('hide');
+        }
+        function EditDepartmentSuccess() {
+            $.validator.unobtrusive.parse("form");
+        }
+        function EditDepartmentFailure() {
+            $.notify("Something wrong in Edit Department", "danger");
+        }
+
+
+        function DeleteEmployeeSuccess() {
+            $('#DeleteEmployeeModal').modal('show');
+        }
+        function DeleteEmployeeFailure() {
+            $.notify("Something wrong in Delete Employee", "danger");
+        }
+        function ConfirmDeleteEmployeeFailure() {
+            $.notify("Something wrong in Confirm Delete Department", "danger");
+        }
+        function ConfirmDeleteEmployeeSuccess() {
+            $('#DeleteEmployeeModal').modal('hide');
+        }
+        function EditEmployeeFailure() {
+            $.notify("Something wrong in Edit Employee", "danger");
+        }
+        function EditEmployeeSuccess() {
+            $.validator.unobtrusive.parse("form");
+        }
+    </script>
+}

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DataAccessLayer.Entity.Department>
+@{  int index = 0; }
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Department Name</th>
+            <th># of Employees</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            index++;
+            <tr>
+                <td>@index</td>
+                <td style="text-align:left">@item.DepartmentName</td>
+                <td>@(item.Employees != null ? item.Employees.Count() : 0)</td>
+                <td>
+                    <a data-ajax="true"
+                       data-ajax-failure="DeleteDepartmentFailure"
+                       data-ajax-method="GET"
+                       data-ajax-mode="replace"
+                       data-ajax-success="DeleteDepartmentSuccess"
+                       data-ajax-update="#DeleteDepartmentDiv"
+                       href="@Url.Action("DeleteDepartment", "Home", new { departmentId = item.DepartmentId })"
+                       class="btn btn-danger">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                    
+                    <a data-ajax="true"
+                       data-ajax-failure="EditDepartmentFailure"
+                       data-ajax-method="GET"
+                       data-ajax-mode="replace"
+                       data-ajax-success="EditDepartmentSuccess"
+                       data-ajax-update="#CreateAndEditDepartmentDiv"
+                       href="@Url.Action("CreateAndEditDepartment", "Home", new { departmentId = item.DepartmentId })"
+                       class="btn btn-warning">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
