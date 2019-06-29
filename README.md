@@ -13,5 +13,14 @@ Features
 4. Initialize Repository pattern which makes seperation of concern to our project.
 5. Using Ajax Request to response back with making rich client side operation.
 
+Steps
+1. Open .sln file in Visual Studio 2015 or above.
+2. Open  MSSql Server 2008 or Above and create database EmployeeDb
+3. Run EmployeeModel.edmx to make database.
+4. Change ConnectionString path as per your specification Sql Server Credentials.
+6. Press Ctr+F5 or F5 and Enjoy coding.
+
+
+
 
 
